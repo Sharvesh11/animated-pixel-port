@@ -8,10 +8,10 @@ import { GradientBlobs } from "@/components/gradient-blobs";
 export const Route = createFileRoute("/projects")({
   head: () => ({
     meta: [
-      { title: "Projects — Nova" },
-      { name: "description", content: "Selected work — interactive web experiences, 3D scenes, and SaaS products." },
-      { property: "og:title", content: "Projects — Nova" },
-      { property: "og:description", content: "Selected interactive & 3D web work." },
+      { title: "Projects — Sharvesh" },
+      { name: "description", content: "Selected projects — secure and full-stack web applications." },
+      { property: "og:title", content: "Projects — Sharvesh" },
+      { property: "og:description", content: "Selected projects and tech stack." },
     ],
   }),
   component: ProjectsPage,
@@ -19,40 +19,26 @@ export const Route = createFileRoute("/projects")({
 
 const projects = [
   {
-    title: "Aurora OS",
-    desc: "An immersive operating system landing page with WebGL parallax.",
-    tags: ["Three.js", "Next.js", "GLSL"],
+    title: "Web-Based Marketplace for Farmers to Connect with Consumers",
+    bullets: [
+      "Built a secure platform enabling farmers to sell products directly to consumers with Face ID authentication and AES encryption, eliminating middlemen and ensuring fair trade.",
+      "Designed an intuitive user interface and streamlined ordering process to enhance usability for both farmers and consumers.",
+    ],
+    tags: ["HTML", "CSS", "JavaScript", "Spring Boot", "MySQL", "OpenCV (Haar Cascade)", "AES", "Face ID"],
     gradient: "linear-gradient(135deg, #c084fc, #67e8f9)",
+    liveUrl: undefined as string | undefined,
+    codeUrl: "https://github.com/Sharvesh11",
   },
   {
-    title: "Pulse Analytics",
-    desc: "Real-time data dashboard with animated chart transitions.",
-    tags: ["React", "D3", "Framer"],
-    gradient: "linear-gradient(135deg, #f472b6, #c084fc)",
-  },
-  {
-    title: "Nebula Studio",
-    desc: "Generative art platform powered by shaders & particle systems.",
-    tags: ["WebGL", "TypeScript"],
-    gradient: "linear-gradient(135deg, #67e8f9, #34d399)",
-  },
-  {
-    title: "Orbit Commerce",
-    desc: "Headless commerce frontend with cinematic product showcases.",
-    tags: ["Remix", "Three.js"],
-    gradient: "linear-gradient(135deg, #fbbf24, #f472b6)",
-  },
-  {
-    title: "Lumen Docs",
-    desc: "Developer documentation engine with live shader playground.",
-    tags: ["MDX", "GLSL"],
-    gradient: "linear-gradient(135deg, #a78bfa, #60a5fa)",
-  },
-  {
-    title: "Echo Player",
-    desc: "Music player with 3D waveform visualizer & gesture controls.",
-    tags: ["Web Audio", "R3F"],
+    title: "Secure Todos Application",
+    bullets: [
+      "Designed and deployed RESTful APIs with secure token-based authentication, enabling protected CRUD operations for todos.",
+      "Integrated frontend (HTML, CSS, JavaScript) with backend services, ensuring seamless communication and secure data handling.",
+    ],
+    tags: ["Spring Boot", "MySQL", "JWT", "HTML", "CSS", "JavaScript", "REST APIs"],
     gradient: "linear-gradient(135deg, #34d399, #67e8f9)",
+    liveUrl: undefined as string | undefined,
+    codeUrl: "https://github.com/Sharvesh11",
   },
 ];
 
@@ -102,7 +88,11 @@ function ProjectCard({ project, i }: { project: (typeof projects)[number]; i: nu
       </div>
       <div className="p-6 relative" style={{ transform: "translateZ(30px)" }}>
         <h3 className="text-xl font-bold">{project.title}</h3>
-        <p className="mt-2 text-sm text-muted-foreground">{project.desc}</p>
+        <ul className="mt-3 space-y-2 text-sm text-muted-foreground list-disc pl-5">
+          {project.bullets.map((b) => (
+            <li key={b}>{b}</li>
+          ))}
+        </ul>
         <div className="mt-4 flex flex-wrap gap-2">
           {project.tags.map((t) => (
             <span key={t} className="text-xs px-2.5 py-1 rounded-full bg-primary/15 text-primary border border-primary/30">
@@ -111,8 +101,28 @@ function ProjectCard({ project, i }: { project: (typeof projects)[number]; i: nu
           ))}
         </div>
         <div className="mt-5 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-          <a className="text-accent flex items-center gap-1 text-sm" href="#"><ExternalLink size={14} /> Live</a>
-          <a className="text-accent flex items-center gap-1 text-sm" href="#"><Github size={14} /> Code</a>
+          {project.liveUrl ? (
+            <a
+              className="text-accent flex items-center gap-1 text-sm"
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ExternalLink size={14} /> Live
+            </a>
+          ) : (
+            <span className="text-muted-foreground flex items-center gap-1 text-sm cursor-not-allowed select-none">
+              <ExternalLink size={14} /> Live (soon)
+            </span>
+          )}
+          <a
+            className="text-accent flex items-center gap-1 text-sm"
+            href={project.codeUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Github size={14} /> Code
+          </a>
         </div>
       </div>
     </motion.div>

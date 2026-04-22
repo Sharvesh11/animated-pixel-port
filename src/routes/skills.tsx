@@ -1,80 +1,77 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { PageTransition } from "@/components/page-transition";
 import { GradientBlobs } from "@/components/gradient-blobs";
 
 export const Route = createFileRoute("/skills")({
   head: () => ({
     meta: [
-      { title: "Skills — Nova" },
-      { name: "description", content: "Technical skills & tools — React, Three.js, TypeScript, Node, motion design." },
-      { property: "og:title", content: "Skills — Nova" },
-      { property: "og:description", content: "My tech stack & proficiency." },
+      { title: "Skills — Sharvesh" },
+      { name: "description", content: "Skills, tools, and concepts used in my projects." },
+      { property: "og:title", content: "Skills — Sharvesh" },
+      { property: "og:description", content: "My technical skills and toolkit." },
     ],
   }),
   component: SkillsPage,
 });
 
-const skills = [
-  { name: "React / TS", level: 95, emoji: "⚛️" },
-  { name: "Three.js / WebGL", level: 88, emoji: "🌐" },
-  { name: "Framer Motion", level: 92, emoji: "✨" },
-  { name: "Node.js", level: 85, emoji: "🟢" },
-  { name: "TailwindCSS", level: 96, emoji: "🎨" },
-  { name: "Figma", level: 80, emoji: "🖌️" },
-  { name: "GLSL Shaders", level: 70, emoji: "💎" },
-  { name: "Python", level: 75, emoji: "🐍" },
-];
+const skillCategories = [
+  {
+    title: "Programming Languages",
+    items: ["Java", "JavaScript"],
+  },
+  {
+    title: "Web & Mobile Development",
+    items: ["HTML5", "CSS3", "Spring Boot"],
+  },
+  {
+    title: "Databases & Query Languages",
+    items: ["MySQL", "SQL"],
+  },
+  {
+    title: "Development Tools & Platforms",
+    items: ["Git", "GitHub", "Visual Studio Code", "Jupyter Notebook"],
+  },
+  {
+    title: "Concepts & Methodologies",
+    items: ["Object-Oriented Programming (OOP)", "RESTful APIs", "Software Development Life Cycle (SDLC)"],
+  },
+  {
+    title: "Microsoft Office Suite",
+    items: ["MS Office", "Word", "Excel", "PowerPoint", "Outlook", "Teams"],
+  },
+] as const;
 
-function Counter({ value }: { value: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-  const mv = useMotionValue(0);
-  const spring = useSpring(mv, { stiffness: 60, damping: 18 });
-  const rounded = useTransform(spring, (v) => Math.round(v));
-
-  useEffect(() => {
-    if (inView) mv.set(value);
-  }, [inView, value, mv]);
-
-  useEffect(() => {
-    return rounded.on("change", (v) => {
-      if (ref.current) ref.current.textContent = `${v}%`;
-    });
-  }, [rounded]);
-
-  return <span ref={ref}>0%</span>;
-}
-
-function SkillBar({ name, level, emoji, i }: { name: string; level: number; emoji: string; i: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-
+function SkillCategoryCard({
+  title,
+  items,
+  i,
+}: {
+  title: string;
+  items: readonly string[];
+  i: number;
+}) {
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: i * 0.07, duration: 0.6 }}
-      className="glass rounded-2xl p-5"
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ amount: 0.25 }}
+      transition={{ delay: i * 0.06, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      className="glass rounded-2xl p-6 shadow-card"
     >
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-3">
-          <span className="text-2xl">{emoji}</span>
-          <span className="font-semibold">{name}</span>
-        </div>
-        <span className="font-mono text-sm text-accent">
-          <Counter value={level} />
-        </span>
+      <div className="flex items-center justify-between gap-4">
+        <h3 className="text-base sm:text-lg font-semibold tracking-tight">{title}</h3>
+        <span className="text-xs font-mono text-accent">{items.length} items</span>
       </div>
-      <div className="relative h-2 rounded-full bg-secondary overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${level}%` } : {}}
-          transition={{ delay: 0.2 + i * 0.07, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-y-0 left-0 bg-neon rounded-full shadow-glow"
-        />
+      <div className="mt-4 flex flex-wrap gap-2">
+        {items.map((item) => (
+          <span
+            key={item}
+            className="text-xs sm:text-sm px-3 py-1 rounded-full bg-primary/10 text-foreground/90 border border-primary/20"
+          >
+            {item}
+          </span>
+        ))}
       </div>
     </motion.div>
   );
@@ -98,7 +95,7 @@ function SkillsPage() {
           transition={{ delay: 0.1 }}
           className="mt-3 text-4xl sm:text-6xl font-bold tracking-tight"
         >
-          Skills & <span className="text-gradient-neon">superpowers</span>
+          Skills & <span className="text-gradient-neon">tools</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -106,12 +103,12 @@ function SkillsPage() {
           transition={{ delay: 0.2 }}
           className="mt-4 text-muted-foreground max-w-xl"
         >
-          A snapshot of the tech I use daily to bring ideas to life.
+          A structured overview of the technologies, tools, and concepts I use to build real-world applications.
         </motion.p>
 
         <div className="mt-12 grid sm:grid-cols-2 gap-4">
-          {skills.map((s, i) => (
-            <SkillBar key={s.name} {...s} i={i} />
+          {skillCategories.map((c, i) => (
+            <SkillCategoryCard key={c.title} title={c.title} items={c.items} i={i} />
           ))}
         </div>
       </section>

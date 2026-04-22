@@ -55,7 +55,10 @@ export function PageTransition({
 
   return (
     <motion.div
-      initial={v.initial}
+      // Avoid blank screens if motion init runs but animate is delayed/skipped.
+      // We still animate on route changes (AnimatePresence handles exits/enters),
+      // but the first paint should never be fully invisible.
+      initial={false}
       animate={v.animate}
       exit={v.exit}
       transition={{

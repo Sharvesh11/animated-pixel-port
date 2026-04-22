@@ -30,10 +30,10 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Nova — Creative Developer Portfolio" },
+      { title: "Sharvesh - Portfolio" },
       { name: "description", content: "An immersive portfolio of a creative developer crafting motion-rich digital experiences." },
       { name: "author", content: "Nova" },
-      { property: "og:title", content: "Nova — Creative Developer Portfolio" },
+      { property: "og:title", content: "Sharvesh - Portfolio" },
       { property: "og:description", content: "Motion-rich, 3D-driven portfolio." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

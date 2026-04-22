@@ -1,12 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
-  ArrowRight, Sparkles, Download, Award, Code2, Rocket, Coffee,
-  ExternalLink, Github, ArrowUpRight, Clock, Trophy, Terminal, Hash,
+  ArrowRight, Sparkles, Download, Award, Code2, Rocket, Coffee, GraduationCap, Layers, Briefcase,
+  ExternalLink, Github,
   FileText, Eye, Send, Check, Mail, MapPin,
 } from "lucide-react";
 import { ParticlesBackground } from "@/components/particles-bg";
@@ -19,7 +19,7 @@ import { ScrollSection, ScrollProgress } from "@/components/scroll-section";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Nova — Creative Developer & Motion Engineer" },
+      { title: "Sharvesh - Portfolio" },
       { name: "description", content: "Hi, I'm Nova — a creative developer building immersive 3D & motion experiences on the web." },
       { property: "og:title", content: "Nova — Creative Developer" },
       { property: "og:description", content: "Immersive 3D & motion-rich web experiences." },
@@ -50,8 +50,6 @@ function HomePage() {
       <AboutSection />
       <SkillsSection />
       <ProjectsSection />
-      <ArticlesSection />
-      <ProfilesSection />
       <ResumeSection />
       <ContactSection />
     </>
@@ -78,14 +76,35 @@ function HeroSection() {
         </motion.span>
         <motion.h1 variants={fadeUp} initial="hidden" animate="show" custom={1}
           className="mt-6 text-5xl sm:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight">
-          I craft <span className="text-gradient-neon">immersive</span><br />
-          digital <span className="text-gradient">experiences</span>.
+          Hi, I'm <span className="text-gradient-neon">Sharvesh</span><br />
+          <span className="text-gradient">Computer Science Engineer</span>
         </motion.h1>
-        <motion.p variants={fadeUp} initial="hidden" animate="show" custom={2}
-          className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-          Creative developer & motion engineer blending React, Three.js, and WebGL to build
-          interfaces that feel alive. Currently shipping the future at the intersection of design & code.
-        </motion.p>
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={2}
+          className="mt-6 max-w-3xl"
+        >
+          <p className="text-xl sm:text-2xl font-semibold tracking-tight">
+            <span className="text-gradient-neon">Aspiring Software Developer</span>{" "}
+            <span className="text-muted-foreground">·</span>{" "}
+            <span className="text-gradient">Computer Science Engineer</span>
+          </p>
+          <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
+            Driven to create{" "}
+            <span className="text-foreground/90 font-medium">efficient</span> and{" "}
+            <span className="text-foreground/90 font-medium">scalable</span> web applications using{" "}
+            <span className="text-foreground/90 font-medium">HTML5</span>,{" "}
+            <span className="text-foreground/90 font-medium">CSS3</span>,{" "}
+            <span className="text-foreground/90 font-medium">JavaScript</span>,{" "}
+            <span className="text-foreground/90 font-medium">Java</span>,{" "}
+            <span className="text-foreground/90 font-medium">SQL</span>, and{" "}
+            <span className="text-foreground/90 font-medium">Spring Boot</span>, with a strong focus on{" "}
+            <span className="text-foreground/90 font-medium">clean architecture</span> and{" "}
+            <span className="text-foreground/90 font-medium">performance</span>.
+          </p>
+        </motion.div>
         <motion.div variants={fadeUp} initial="hidden" animate="show" custom={3}
           className="mt-10 flex flex-wrap items-center gap-4">
           <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}>
@@ -110,10 +129,10 @@ function HeroSection() {
 
 /* ─────────── ABOUT ─────────── */
 const stats = [
-  { Icon: Rocket, value: "50+", label: "Projects shipped" },
-  { Icon: Award, value: "12", label: "Awards & features" },
-  { Icon: Code2, value: "5y", label: "Years coding" },
-  { Icon: Coffee, value: "∞", label: "Cups of coffee" },
+  { Icon: GraduationCap, value: "CS Engineering", label: "Education" },
+  { Icon: Rocket, value: "2+ Built", label: "Projects" },
+  { Icon: Layers, value: "Full Stack", label: "Focus" },
+  { Icon: Briefcase, value: "Fresher", label: "Experience" },
 ];
 
 function AboutSection() {
@@ -122,14 +141,17 @@ function AboutSection() {
       <div className="relative mx-auto max-w-6xl px-6">
         <p className="text-sm uppercase tracking-[0.3em] text-accent">About me</p>
         <h2 className="mt-3 text-4xl sm:text-6xl font-bold tracking-tight">
-          A developer who <span className="text-gradient-neon">designs</span>,<br />
-          a designer who <span className="text-gradient">codes</span>.
+          Driven by <span className="text-gradient-neon">curiosity</span> and<br />
+          powered by <span className="text-gradient">code</span>.
         </h2>
         <div className="mt-12 grid lg:grid-cols-[1.4fr_1fr] gap-10 items-start">
           <div className="space-y-5 text-lg text-muted-foreground leading-relaxed">
-            <p>I'm <span className="text-foreground font-semibold">Nova</span>, a creative developer based in the cloud, building motion-driven interfaces for ambitious brands and product teams.</p>
-            <p>My toolkit lives at the crossroads of <span className="text-foreground">React</span>, <span className="text-foreground">Three.js</span>, and <span className="text-foreground">WebGL</span> — but my craft is storytelling through interaction. Every pixel breathes, every click has weight.</p>
-            <p>When I'm not shipping experiences, you'll find me sketching shaders, mentoring juniors, or chasing perfect typography.</p>
+            <p>
+              I’m a <span className="text-foreground font-semibold">Computer Science Engineering</span> student passionate about building real-world web applications using modern technologies. My journey started with curiosity about how systems work and has grown into a strong interest in full-stack development.
+            </p>
+            <p>
+              Currently, I’m focused on developing projects using <span className="text-foreground">HTML5</span>, <span className="text-foreground">CSS3</span>, <span className="text-foreground">JavaScript</span>, <span className="text-foreground">Java</span>, <span className="text-foreground">SQL</span>, and <span className="text-foreground">Spring Boot</span>. I enjoy creating responsive user interfaces and scalable backend systems while continuously improving my skills and staying updated with industry trends.
+            </p>
             <div className="pt-4">
               <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); }}>
                 <GlowButton>Let's collaborate <ArrowRight size={18} /></GlowButton>
@@ -152,42 +174,63 @@ function AboutSection() {
 }
 
 /* ─────────── SKILLS ─────────── */
-const skills = [
-  { name: "React / TS", level: 95, emoji: "⚛️" },
-  { name: "Three.js / WebGL", level: 88, emoji: "🌐" },
-  { name: "Framer Motion", level: 92, emoji: "✨" },
-  { name: "Node.js", level: 85, emoji: "🟢" },
-  { name: "TailwindCSS", level: 96, emoji: "🎨" },
-  { name: "Figma", level: 80, emoji: "🖌️" },
-  { name: "GLSL Shaders", level: 70, emoji: "💎" },
-  { name: "Python", level: 75, emoji: "🐍" },
-];
+const skillCategories = [
+  {
+    title: "Programming Languages",
+    items: ["Java", "JavaScript"],
+  },
+  {
+    title: "Web & Mobile Development",
+    items: ["HTML5", "CSS3", "Spring Boot"],
+  },
+  {
+    title: "Databases & Query Languages",
+    items: ["MySQL", "SQL"],
+  },
+  {
+    title: "Development Tools & Platforms",
+    items: ["Git", "GitHub", "Visual Studio Code", "Jupyter Notebook"],
+  },
+  {
+    title: "Concepts & Methodologies",
+    items: ["Object-Oriented Programming (OOP)", "RESTful APIs", "Software Development Life Cycle (SDLC)"],
+  },
+  {
+    title: "Microsoft Office Suite",
+    items: ["MS Office", "Word", "Excel", "PowerPoint", "Outlook", "Teams"],
+  },
+] as const;
 
-function Counter({ value }: { value: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-  const mv = useMotionValue(0);
-  const spring = useSpring(mv, { stiffness: 60, damping: 18 });
-  const rounded = useTransform(spring, (v) => Math.round(v));
-  useEffect(() => { if (inView) mv.set(value); }, [inView, value, mv]);
-  useEffect(() => rounded.on("change", (v) => { if (ref.current) ref.current.textContent = `${v}%`; }), [rounded]);
-  return <span ref={ref}>0%</span>;
-}
-
-function SkillBar({ name, level, emoji, i }: { name: string; level: number; emoji: string; i: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
+function SkillCategoryCard({
+  title,
+  items,
+  i,
+}: {
+  title: string;
+  items: readonly string[];
+  i: number;
+}) {
   return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: i * 0.07, duration: 0.6 }} className="glass rounded-2xl p-5">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-3"><span className="text-2xl">{emoji}</span><span className="font-semibold">{name}</span></div>
-        <span className="font-mono text-sm text-accent"><Counter value={level} /></span>
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ amount: 0.25 }}
+      transition={{ delay: i * 0.06, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      className="glass rounded-2xl p-6 shadow-card"
+    >
+      <div className="flex items-center justify-between gap-4">
+        <h3 className="text-base sm:text-lg font-semibold tracking-tight">{title}</h3>
+        <span className="text-xs font-mono text-accent">{items.length} items</span>
       </div>
-      <div className="relative h-2 rounded-full bg-secondary overflow-hidden">
-        <motion.div initial={{ width: 0 }} animate={inView ? { width: `${level}%` } : {}}
-          transition={{ delay: 0.2 + i * 0.07, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-y-0 left-0 bg-neon rounded-full shadow-glow" />
+      <div className="mt-4 flex flex-wrap gap-2">
+        {items.map((item) => (
+          <span
+            key={item}
+            className="text-xs sm:text-sm px-3 py-1 rounded-full bg-primary/10 text-foreground/90 border border-primary/20"
+          >
+            {item}
+          </span>
+        ))}
       </div>
     </motion.div>
   );
@@ -199,11 +242,15 @@ function SkillsSection() {
       <div className="relative mx-auto max-w-5xl px-6">
         <p className="text-sm uppercase tracking-[0.3em] text-accent">My toolkit</p>
         <h2 className="mt-3 text-4xl sm:text-6xl font-bold tracking-tight">
-          Skills & <span className="text-gradient-neon">superpowers</span>
+          Skills & <span className="text-gradient-neon">tools</span>
         </h2>
-        <p className="mt-4 text-muted-foreground max-w-xl">A snapshot of the tech I use daily to bring ideas to life.</p>
+        <p className="mt-4 text-muted-foreground max-w-2xl">
+          A structured overview of the technologies, tools, and concepts I use to build real-world applications.
+        </p>
         <div className="mt-12 grid sm:grid-cols-2 gap-4">
-          {skills.map((s, i) => <SkillBar key={s.name} {...s} i={i} />)}
+          {skillCategories.map((c, i) => (
+            <SkillCategoryCard key={c.title} title={c.title} items={c.items} i={i} />
+          ))}
         </div>
       </div>
     </ScrollSection>
@@ -212,12 +259,28 @@ function SkillsSection() {
 
 /* ─────────── PROJECTS ─────────── */
 const projects = [
-  { title: "Aurora OS", desc: "An immersive operating system landing page with WebGL parallax.", tags: ["Three.js", "Next.js", "GLSL"], gradient: "linear-gradient(135deg, #c084fc, #67e8f9)" },
-  { title: "Pulse Analytics", desc: "Real-time data dashboard with animated chart transitions.", tags: ["React", "D3", "Framer"], gradient: "linear-gradient(135deg, #f472b6, #c084fc)" },
-  { title: "Nebula Studio", desc: "Generative art platform powered by shaders & particle systems.", tags: ["WebGL", "TypeScript"], gradient: "linear-gradient(135deg, #67e8f9, #34d399)" },
-  { title: "Orbit Commerce", desc: "Headless commerce frontend with cinematic product showcases.", tags: ["Remix", "Three.js"], gradient: "linear-gradient(135deg, #fbbf24, #f472b6)" },
-  { title: "Lumen Docs", desc: "Developer documentation engine with live shader playground.", tags: ["MDX", "GLSL"], gradient: "linear-gradient(135deg, #a78bfa, #60a5fa)" },
-  { title: "Echo Player", desc: "Music player with 3D waveform visualizer & gesture controls.", tags: ["Web Audio", "R3F"], gradient: "linear-gradient(135deg, #34d399, #67e8f9)" },
+  {
+    title: "Web-Based Marketplace for Farmers to Connect with Consumers",
+    bullets: [
+      "Built a secure platform enabling farmers to sell products directly to consumers with Face ID authentication and AES encryption, eliminating middlemen and ensuring fair trade.",
+      "Designed an intuitive user interface and streamlined ordering process to enhance usability for both farmers and consumers.",
+    ],
+    tags: ["HTML", "CSS", "JavaScript", "Spring Boot", "MySQL", "OpenCV (Haar Cascade)", "AES", "Face ID"],
+    gradient: "linear-gradient(135deg, #c084fc, #67e8f9)",
+    liveUrl: undefined as string | undefined,
+    codeUrl: "https://github.com/Sharvesh11",
+  },
+  {
+    title: "Secure Todos Application",
+    bullets: [
+      "Designed and deployed RESTful APIs with secure token-based authentication, enabling protected CRUD operations for todos.",
+      "Integrated frontend (HTML, CSS, JavaScript) with backend services, ensuring seamless communication and secure data handling.",
+    ],
+    tags: ["Spring Boot", "MySQL", "JWT", "HTML", "CSS", "JavaScript", "REST APIs"],
+    gradient: "linear-gradient(135deg, #34d399, #67e8f9)",
+    liveUrl: undefined as string | undefined,
+    codeUrl: "https://github.com/Sharvesh11",
+  },
 ];
 
 function ProjectCard({ project, i }: { project: (typeof projects)[number]; i: number }) {
@@ -249,15 +312,39 @@ function ProjectCard({ project, i }: { project: (typeof projects)[number]; i: nu
       </div>
       <div className="p-6 relative" style={{ transform: "translateZ(30px)" }}>
         <h3 className="text-xl font-bold">{project.title}</h3>
-        <p className="mt-2 text-sm text-muted-foreground">{project.desc}</p>
+        <ul className="mt-3 space-y-2 text-sm text-muted-foreground list-disc pl-5">
+          {project.bullets.map((b) => (
+            <li key={b}>{b}</li>
+          ))}
+        </ul>
         <div className="mt-4 flex flex-wrap gap-2">
           {project.tags.map((t) => (
             <span key={t} className="text-xs px-2.5 py-1 rounded-full bg-primary/15 text-primary border border-primary/30">{t}</span>
           ))}
         </div>
         <div className="mt-5 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-          <a className="text-accent flex items-center gap-1 text-sm" href="#"><ExternalLink size={14} /> Live</a>
-          <a className="text-accent flex items-center gap-1 text-sm" href="#"><Github size={14} /> Code</a>
+          {project.liveUrl ? (
+            <a
+              className="text-accent flex items-center gap-1 text-sm"
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ExternalLink size={14} /> Live
+            </a>
+          ) : (
+            <span className="text-muted-foreground flex items-center gap-1 text-sm cursor-not-allowed select-none">
+              <ExternalLink size={14} /> Live (soon)
+            </span>
+          )}
+          <a
+            className="text-accent flex items-center gap-1 text-sm"
+            href={project.codeUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Github size={14} /> Code
+          </a>
         </div>
       </div>
     </motion.div>
@@ -274,88 +361,6 @@ function ProjectsSection() {
         </h2>
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: 1200 }}>
           {projects.map((p, i) => <ProjectCard key={p.title} project={p} i={i} />)}
-        </div>
-      </div>
-    </ScrollSection>
-  );
-}
-
-/* ─────────── ARTICLES ─────────── */
-const articles = [
-  { title: "The Art of Subtle Motion", date: "Apr 12, 2026", read: "6 min", tag: "Motion" },
-  { title: "Shaders for People Who Hate Math", date: "Mar 28, 2026", read: "9 min", tag: "WebGL" },
-  { title: "Designing for the Edge of Performance", date: "Feb 14, 2026", read: "5 min", tag: "Perf" },
-  { title: "React 19 — A Quiet Revolution", date: "Jan 30, 2026", read: "7 min", tag: "React" },
-  { title: "Why I Stopped Using CSS Animations", date: "Dec 18, 2025", read: "4 min", tag: "Opinion" },
-];
-
-function ArticlesSection() {
-  return (
-    <ScrollSection id="articles" variant="slide">
-      <div className="relative mx-auto max-w-4xl px-6">
-        <p className="text-sm uppercase tracking-[0.3em] text-accent">Writing</p>
-        <h2 className="mt-3 text-4xl sm:text-6xl font-bold tracking-tight">
-          Featured <span className="text-gradient-neon">articles</span>
-        </h2>
-        <div className="mt-12 space-y-3">
-          {articles.map((a, i) => (
-            <motion.a key={a.title} href="#" initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-              transition={{ delay: i * 0.07, duration: 0.5 }} whileHover={{ x: 8 }}
-              className="group flex items-center justify-between gap-6 glass rounded-2xl p-5 hover:bg-primary/10 transition-colors">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                  <span>{a.date}</span>
-                  <span className="size-1 rounded-full bg-muted-foreground" />
-                  <Clock size={12} /> <span>{a.read}</span>
-                  <span className="ml-auto sm:ml-3 px-2 py-0.5 rounded-full bg-accent/15 text-accent border border-accent/30">{a.tag}</span>
-                </div>
-                <h3 className="mt-2 text-lg sm:text-xl font-semibold group-hover:text-gradient-neon transition-all">{a.title}</h3>
-              </div>
-              <ArrowUpRight className="text-muted-foreground group-hover:text-accent group-hover:rotate-45 transition-all shrink-0" size={22} />
-            </motion.a>
-          ))}
-        </div>
-      </div>
-    </ScrollSection>
-  );
-}
-
-/* ─────────── PROFILES ─────────── */
-const profilesData = [
-  { name: "GitHub", handle: "@nova", stat: "320 repos", Icon: Github, color: "from-zinc-300 to-zinc-500" },
-  { name: "LeetCode", handle: "nova-codes", stat: "850 solved", Icon: Code2, color: "from-amber-400 to-orange-500" },
-  { name: "SkillRack", handle: "nova_dev", stat: "Rank #142", Icon: Trophy, color: "from-emerald-400 to-teal-500" },
-  { name: "HackerRank", handle: "@nova_hr", stat: "5★ Problem Solving", Icon: Terminal, color: "from-green-400 to-lime-500" },
-  { name: "Codeforces", handle: "nova", stat: "Expert · 1700", Icon: Hash, color: "from-sky-400 to-blue-600" },
-  { name: "CodeChef", handle: "nova", stat: "4★ · 1900", Icon: Code2, color: "from-rose-400 to-pink-600" },
-];
-
-function ProfilesSection() {
-  return (
-    <ScrollSection id="profiles" variant="zoom">
-      <div className="relative mx-auto max-w-6xl px-6">
-        <p className="text-sm uppercase tracking-[0.3em] text-accent">Coding profiles</p>
-        <h2 className="mt-3 text-4xl sm:text-6xl font-bold tracking-tight">
-          Find me on the <span className="text-gradient-neon">grid</span>
-        </h2>
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {profilesData.map((p, i) => (
-            <motion.a key={p.name} href="#" target="_blank" rel="noreferrer"
-              initial={{ opacity: 0, scale: 0.6, y: 30 }} whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.08, type: "spring", stiffness: 220, damping: 18 }}
-              whileHover={{ y: -8, scale: 1.04 }}
-              className="group relative glass rounded-2xl p-6 overflow-hidden shadow-card">
-              <div className={`absolute -top-12 -right-12 size-40 rounded-full bg-gradient-to-br ${p.color} opacity-20 blur-2xl group-hover:opacity-40 transition-opacity`} />
-              <div className={`size-12 rounded-xl bg-gradient-to-br ${p.color} flex items-center justify-center mb-4`}>
-                <p.Icon size={22} className="text-background" />
-              </div>
-              <h3 className="text-lg font-bold">{p.name}</h3>
-              <p className="text-sm text-muted-foreground">{p.handle}</p>
-              <p className="mt-3 text-sm text-accent font-mono">{p.stat}</p>
-            </motion.a>
-          ))}
         </div>
       </div>
     </ScrollSection>

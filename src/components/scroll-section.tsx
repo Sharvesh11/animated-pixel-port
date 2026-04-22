@@ -22,20 +22,21 @@ export function ScrollSection({
   });
 
   // Cinematic transforms — driven by scroll progress (0 → 0.5 → 1)
-  const opacity = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], [0, 1, 1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [120, 0, 0, -120]);
-  const scale = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.85, 1, 1, 0.92]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [18, 0, 0, -12]);
-  const blur = useTransform(scrollYProgress, [0, 0.22, 0.78, 1], [20, 0, 0, 16]);
-  const filter = useTransform(blur, (b) => `blur(${b}px)`);
-  const x = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [-160, 0, 0, 160]);
+  // Never start fully invisible (prevents "empty scroll" when scroll progress
+  // doesn't advance as expected in some local environments).
+  const opacity = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], [1, 1, 1, 0]);
+  // Start "neutral" at progress=0 so sections don't appear tilted/blurred on load.
+  // Keep motion subtle and mainly on exit.
+  const y = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], [0, 0, 0, -48]);
+  const scale = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], [1, 1, 1, 0.98]);
+  const x = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], [0, 0, 0, 40]);
 
   const styleByVariant = {
-    rise: reduce ? {} : { opacity, y, filter },
-    zoom: reduce ? {} : { opacity, scale, filter },
-    tilt: reduce ? {} : { opacity, y, rotateX, scale },
-    blur: reduce ? {} : { opacity, filter, scale },
-    slide: reduce ? {} : { opacity, x, filter },
+    rise: reduce ? {} : { opacity, y },
+    zoom: reduce ? {} : { opacity, scale },
+    tilt: reduce ? {} : { opacity, y, scale },
+    blur: reduce ? {} : { opacity, scale },
+    slide: reduce ? {} : { opacity, x },
   } as const;
 
   return (
@@ -46,7 +47,14 @@ export function ScrollSection({
       style={{ perspective: 1400 }}
     >
       <motion.div
-        style={{ ...styleByVariant[variant], transformStyle: "preserve-3d", willChange: "transform, opacity, filter" }}
+        // Default-visible baseline so if scroll is blocked (e.g. overflow hidden),
+        // sections still render instead of staying at opacity: 0.
+        style={{
+          opacity: 1,
+          ...styleByVariant[variant],
+          transformStyle: "preserve-3d",
+          willChange: "transform, opacity",
+        }}
         className="w-full"
       >
         {children}
