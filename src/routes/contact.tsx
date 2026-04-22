@@ -31,7 +31,7 @@ type FormData = z.infer<typeof schema>;
 function ContactPage() {
   const [sent, setSent] = useState(false);
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema as never),
   });
 
   const onSubmit = async (data: FormData) => {
