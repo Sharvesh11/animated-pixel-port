@@ -25,7 +25,7 @@ export const GlowButton = forwardRef<HTMLButtonElement, GlowButtonProps>(
         {...props}
       >
         <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer" />
-        <span className="relative flex items-center gap-2">{children}</span>
+        <span className="relative flex items-center gap-2">{children as React.ReactNode}</span>
       </motion.button>
     );
   },
