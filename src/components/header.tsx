@@ -1,22 +1,57 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/skills", label: "Skills" },
-  { to: "/projects", label: "Projects" },
-  { to: "/articles", label: "Articles" },
-  { to: "/profiles", label: "Profiles" },
-  { to: "/resume", label: "Resume" },
-  { to: "/contact", label: "Contact" },
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "projects", label: "Projects" },
+  { id: "articles", label: "Articles" },
+  { id: "profiles", label: "Profiles" },
+  { id: "resume", label: "Resume" },
+  { id: "contact", label: "Contact" },
 ] as const;
+
+function scrollToId(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const location = useLocation();
+  const [active, setActive] = useState<string>("home");
+
+  useEffect(() => {
+    const ids = links.map((l) => l.id);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const handleNav = (id: string) => {
+    setOpen(false);
+    if (typeof window !== "undefined" && window.location.pathname !== "/") {
+      // Navigate to home then scroll
+      window.location.href = `/#${id}`;
+      return;
+    }
+    scrollToId(id);
+    history.replaceState(null, "", `#${id}`);
+  };
 
   return (
     <motion.header
@@ -27,21 +62,21 @@ export function Header() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4">
         <div className="glass rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/" onClick={() => handleNav("home")} className="flex items-center gap-2 group">
             <div className="size-8 rounded-lg bg-neon shadow-glow group-hover:scale-110 transition-transform" />
             <span className="font-bold text-lg tracking-tight text-gradient">Nova.dev</span>
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
             {links.map((l) => {
-              const active = location.pathname === l.to;
+              const isActive = active === l.id;
               return (
-                <Link
-                  key={l.to}
-                  to={l.to}
+                <button
+                  key={l.id}
+                  onClick={() => handleNav(l.id)}
                   className="relative px-3 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {active && (
+                  {isActive && (
                     <motion.span
                       layoutId="nav-pill"
                       className="absolute inset-0 rounded-full bg-primary/15 ring-1 ring-primary/40"
@@ -49,7 +84,7 @@ export function Header() {
                     />
                   )}
                   <span className="relative">{l.label}</span>
-                </Link>
+                </button>
               );
             })}
           </nav>
@@ -72,14 +107,13 @@ export function Header() {
               className="lg:hidden mt-2 glass rounded-2xl p-3 grid grid-cols-2 gap-2"
             >
               {links.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  onClick={() => setOpen(false)}
-                  className="px-3 py-2 rounded-lg text-sm hover:bg-primary/10 hover:text-foreground text-muted-foreground"
+                <button
+                  key={l.id}
+                  onClick={() => handleNav(l.id)}
+                  className="px-3 py-2 rounded-lg text-sm hover:bg-primary/10 hover:text-foreground text-muted-foreground text-left"
                 >
                   {l.label}
-                </Link>
+                </button>
               ))}
             </motion.nav>
           )}
