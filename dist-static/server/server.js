@@ -1,4 +1,4 @@
-globalThis.process = { env: {} };
+
 import { AsyncLocalStorage } from "node:async_hooks";
 import { H3Event, toResponse } from "h3-v2";
 import { rootRouteId, defaultSerovalPlugins, makeSerovalPlugin, createRawStreamRPCPlugin, invariant, isNotFound, isRedirect, resolveManifestAssetLink, createSerializationAdapter, isResolvedRedirect, executeRewriteInput } from "@tanstack/router-core";
@@ -1001,3 +1001,33 @@ export {
   createServerEntry,
   server as default
 };
+
+import http from "http";
+
+const PORT = process.env.PORT || 3000;
+
+http.createServer(async (req, res) => {
+  try {
+    const request = new Request(`http://${req.headers.host}${req.url}`, {
+      method: req.method,
+      headers: req.headers,
+      body:
+        req.method !== "GET" && req.method !== "HEAD"
+          ? req
+          : undefined,
+    });
+
+    const response = await server.fetch(request);
+
+    res.writeHead(response.status, Object.fromEntries(response.headers));
+
+    const body = await response.arrayBuffer();
+    res.end(Buffer.from(body));
+  } catch (err) {
+    console.error("Server error:", err);
+    res.statusCode = 500;
+    res.end("Internal Server Error");
+  }
+}).listen(PORT, () => {
+  console.log("🚀 Server running on port", PORT);
+});
