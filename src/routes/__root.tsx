@@ -2,6 +2,7 @@ import { Outlet, createRootRoute, HeadContent, Scripts, useLocation } from "@tan
 import { AnimatePresence } from "framer-motion";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import "../styles.css";
 
 import appCss from "../styles.css?url";
 
